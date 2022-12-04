@@ -2,6 +2,7 @@ import CampoCiudad from './CampoCiudad/CampoCiudad';
 import CampoFecha from './CampoFecha/CampoFecha';
 import ciudades from '../../files/ciudades'
 import './Buscador.css'
+import CampoPersona from './CampoPersona/CampoPersona';
 
 const Buscador = () => {
     return(
@@ -27,8 +28,14 @@ const Buscador = () => {
                 </div>
             </div>
 
+            <div className='contenedor_persona'>
+                <CampoPersona />
+            </div>
+
         </div>
     )
 }
 
 export default Buscador;
+
+    

@@ -20,11 +20,11 @@
 }
 
 .contenedor_ciudades{
-    background-color: rgb(89, 200, 33);
+    border: 2px solid rgb(89, 200, 33);
 }
 
 .contenedor_fechas{
-    background-color: rgb(123, 41, 41);
+    border: 2px solid  rgb(123, 41, 41);
     width: 360px;
 }
 
