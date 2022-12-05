@@ -1,6 +1,8 @@
 import './CampoPersona.css'
 import {useEffect, useState} from 'react'
-
+import ItemPersona from './ItemPersona/ItemPersona'
+/* import Select from '../Select/Select'
+import Alert from '@mui/material/Alert'; */
 
 const CampoPersona = () => {
 
@@ -8,11 +10,11 @@ const CampoPersona = () => {
     const cantMaximaReserva = 9
 
     const [mostrarModal, setMostrarModal] = useState(false)
-    const [mostrarWarningEdadesMenores, setMostrarWarningEdadesMenores] = useState(false)
     const [cantAdultos, setCantAdultos] = useState(1)
     const [cantMenores, setCantMenores] = useState(0)
     const [cantBebes, setCantBebes] = useState(0)
     const [edadMenores, setEdadMenores] = useState([])
+    const [mostrarWarningEdadesMenores, setMostrarWarningEdadesMenores] = useState(false)
 
 
     useEffect(() => {
@@ -42,82 +44,99 @@ const CampoPersona = () => {
         }
     }
 
-
-    
-
-
     return(
         <>
             <div className='boton_personas' onClick={() =>setMostrarModal(!mostrarModal) }>
                 <p className='label_boton'>Personas</p>
-                <p className='value_boton'>{cantAdultos+cantMenores+cantBebes} {(cantAdultos+cantMenores+cantBebes>1) ? "personas" : "persona"} </p>
+                <p 
+                    className='value_boton' 
+                    style={{"color": (cantAdultos+cantMenores+cantBebes)>cantMaximaReserva || cantBebes>cantAdultos || mostrarWarningEdadesMenores ? "red" : "black"}}
+                >
+                    {cantAdultos+cantMenores+cantBebes} {(cantAdultos+cantMenores+cantBebes>1) ? "personas" : "persona"} 
+                </p>
             </div>
             {
                 mostrarModal ? 
                 <div className='modal_personas'>
-                    <div className='item_modal_personas'>
-                        <div className='contenedor_label_item'>
-                            <p className='label_item'>Adultos</p>
-                            <p className='info_label_item'>Desde 18 años</p>
-                        </div>
-                        <div className='contenedor_cant_pers'>
-                            <button disabled={cantAdultos===1} className='btn btn-primary' onClick={() => setCantAdultos(cantAdultos-1)}>-</button>
-                            <p>{cantAdultos}</p>
-                            <button disabled={cantAdultos>=cantMaximaReserva} className='btn btn-primary' onClick={() => setCantAdultos(cantAdultos+1)}>+</button>
-                        </div>
-                    </div>
-                    <div className='item_modal_personas'>
-                        <div className='contenedor_label_item'>
-                            <p className='label_item'>Menores</p>
-                            <p className='info_label_item'>Desde 2 a 17 años</p>
-                        </div>
-                        <div className='contenedor_cant_pers'>
-                            <button disabled={cantMenores===0} className='btn btn-primary' onClick={() => setCantMenores(cantMenores-1)}>-</button>
-                            <p>{cantMenores}</p>
-                            <button disabled={cantMenores>=cantMaximaReserva-1} className='btn btn-primary' onClick={() => setCantMenores(cantMenores+1)}>+</button>
-                        </div>
-                    </div>
+
+                    {/* ADULTOS */}
+                    
+                    <ItemPersona 
+                        titulo={"Adultos"}
+                        desc={"Desde los 18 años"}
+                        preguntaDisabledDescontar={cantAdultos===1}
+                        preguntaDisabledAumentar={cantAdultos>=cantMaximaReserva}
+                        funcionButton={setCantAdultos}
+                        contador={cantAdultos}
+                    />
+
+                    {/* MENORES */}
+                   
+                     <ItemPersona 
+                        titulo={"Menores"}
+                        desc={"De 2 a 17 años"}
+                        preguntaDisabledDescontar={cantMenores===0}
+                        preguntaDisabledAumentar={cantMenores>=cantMaximaReserva-1}
+                        funcionButton={setCantMenores}
+                        contador={cantMenores}
+                    />
+
                     {
                         edadMenores.map((edad, index) => {
                             return (
-                                <select defaultValue={edad} key={index} onChange={(SyntheticEvent)=>handleChangeEdadMenor(SyntheticEvent.target.value, index)}>
-                                    <option value={"Sin seleccionar"}>Seleccione la edad del {index+1}° menor</option>
-                                    <option value={"Ninio"}>Entre 2 y 11 años</option>
-                                    <option value={"Adolescente"}>Entre 11 y 17 años</option>
+                                <select 
+                                    className='selectPersona d-flex' 
+                                    defaultValue={edad} 
+                                    key={index} 
+                                    onChange={(SyntheticEvent)=>handleChangeEdadMenor(SyntheticEvent.target.value, index)}
+                                >
+                                    <option className='optionSelect' value={"Sin seleccionar"}>Seleccione la edad del {index+1}° menor</option>
+                                    <option className='optionSelect' value={"Ninio"}>Entre 2 y 11 años</option>
+                                    <option className='optionSelect' value={"Adolescente"}>Entre 11 y 17 años</option>
                                 </select>
+                                
                             )
                         })
                     }
-                    <div className='item_modal_personas'>
-                        <div className='contenedor_label_item'>
-                            <p className='label_item'>Bebes</p>
-                            <p className='info_label_item'>Menos de 2 años</p>
-                        </div>
-                        <div className='contenedor_cant_pers'>
-                            <button disabled={cantBebes===0} className='btn btn-primary' onClick={() => setCantBebes(cantBebes-1)}>-</button>
-                            <p>{cantBebes}</p>
-                            <button disabled={cantBebes>=cantMaximaReserva-1} className='btn btn-primary' onClick={() => setCantBebes(cantBebes+1)}>+</button>
-                        </div>
-                    </div>
+
+                    {/* BEBES */}
+                    
+                    <ItemPersona 
+                        titulo={"Bebes"}
+                        desc={"Menor de 2 años"}
+                        preguntaDisabledDescontar={cantBebes===0}
+                        preguntaDisabledAumentar={cantBebes>=cantMaximaReserva-1}
+                        funcionButton={setCantBebes}
+                        contador={cantBebes}
+                    
+                    />
                     
                     <hr />
                     {
                         (cantAdultos+cantMenores+cantBebes)>cantMaximaReserva ? 
-                        <p>El máximo de reservas es de {cantMaximaReserva} personas</p>
+                        //<Alert className='warningPersona' severity="error">El máximo de reservas es de {cantMaximaReserva} personas</Alert> 
+                        <p className='warningPersona'>*El máximo de reservas es de {cantMaximaReserva} personas</p>
                         : ""    
                     }
                     {
                         cantBebes>cantAdultos ? 
-                        <p>No pueden haber mas bebes que adultos</p>
+                        //<Alert className='warningPersona' severity="error">No pueden haber mas bebes que adultos</Alert>
+                        <p className='warningPersona'>*No pueden haber mas bebes que adultos</p>
                         : ""    
                     }
                     {
                         mostrarWarningEdadesMenores ? 
-                        <p>Debe especificar las edades de todos los menores</p>
+                        //<Alert className='warningPersona' severity="error">Seleccione la edad de todos los menores</Alert>
+                        <p className='warningPersona'>*Seleccione la edad de todos los menores</p>
                         : ""
                     }
-                    
-                    <button className='btn btn-info'  onClick={() =>setMostrarModal(!mostrarModal) }>Listo</button>
+                    <div className='d-flex justify-content-center'>
+                        <button 
+                            disabled={(cantAdultos+cantMenores+cantBebes)>cantMaximaReserva || cantBebes>cantAdultos || mostrarWarningEdadesMenores} 
+                            className='btn btn-info botonListo'  
+                            onClick={() =>setMostrarModal(!mostrarModal) }
+                        >Listo</button>
+                    </div>
                 </div>
 
                 : ""
@@ -143,3 +162,26 @@ con bebes mostar warning si hay mas bebes que adultos
 bloquear boton si hay warnings
 
 */
+
+
+
+
+                                {/* <Select
+                                    key={index}
+                                    defaultValue={edad}
+                                    handleChange={handleChangeEdadMenor}
+                                    values={[
+                                        {
+                                            value:"Sin seleccionar",
+                                            desc: "Sin seleccionar"
+                                        },
+                                        {
+                                            value:"Ninio",
+                                            desc: "Entre 2 y 11 años"
+                                        },
+                                        {
+                                            value:"Adolescente",
+                                            desc: "Entre 11 y 17 años"
+                                        }
+                                        ]}
+                                /> */}

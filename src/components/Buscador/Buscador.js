@@ -3,6 +3,7 @@ import CampoFecha from './CampoFecha/CampoFecha';
 import ciudades from '../../files/ciudades'
 import './Buscador.css'
 import CampoPersona from './CampoPersona/CampoPersona';
+import SelectClase from './SelectClase/SelectClase';
 
 const Buscador = () => {
     return(
@@ -28,14 +29,16 @@ const Buscador = () => {
                 </div>
             </div>
 
+            {/* PERSONAS */}
             <div className='contenedor_persona'>
                 <CampoPersona />
             </div>
 
+            {/* CLASE */}
+            <SelectClase/>
         </div>
     )
 }
 
 export default Buscador;
 
-    

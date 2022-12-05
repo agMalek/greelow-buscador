@@ -1,0 +1,41 @@
+
+
+.item_modal_personas{
+    display: flex;
+    justify-content: space-between;
+    width: 250px;
+}
+
+
+.contenedor_label_item{
+    align-items: center;
+    
+}
+
+
+.label_item{
+    margin-top: 10px;
+    margin-bottom: 0;
+}
+
+.info_label_item{
+    margin-bottom: 10px;
+    
+}
+
+
+.contenedor_cant_pers{
+    display: flex;
+    align-items: center;
+}
+
+.contenedor_cant_pers button, .contenedor_cant_pers p{
+    height: 50%;
+    margin: auto 5px;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.contenedor_cant_pers p{
+    font-size: 20px;
+}
