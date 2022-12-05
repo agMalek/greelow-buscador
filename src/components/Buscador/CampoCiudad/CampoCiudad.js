@@ -9,7 +9,8 @@ const CampoCiudad = ({opciones, label}) => {
                 disablePortal
                 id="combo-box-demo"
                 options={opciones}
-                sx={{ width: 200 }}
+                className="campoCiudadMui"
+                sx={{ width: 200}}
                 renderInput={(params) => <TextField {...params} label={`${label}`} />}
             />
         </div>

@@ -4,12 +4,20 @@
 }
 
 .contenedor_buscador{
+    background-color: #eee;
+    height: 160px;
+    padding:20px;
+    margin: 30px;
+    border-radius: 40px;
     font-family: Arial, Helvetica, sans-serif;
-    color: #222;
-    background-color: #EEE;
-    height: 200px;
-    padding: 20px;
-    margin: 10px;
+}
+
+.titulo_buscador{
+    font-size: 25px;
+    margin: 0 40px;
+}
+
+.contenedor_inputs_buscador{
     display: flex;
 }
 
@@ -20,14 +28,40 @@
 }
 
 .contenedor_ciudades{
-    border: 2px solid rgb(89, 200, 33);
 }
 
 .contenedor_fechas{
-    border: 2px solid  rgb(123, 41, 41);
     width: 360px;
 }
 
 .campo_ciudad, .campo_fecha{
+    margin: 10px;
+    color: #fff;
+}
+
+.origen{
+    margin-right: 2px;
+}
+
+.destino{
+    margin-left: 2px;   
+}
+
+.icon_avion{
+    margin-top: 25px;
+    transform: rotate(90deg);
+}
+
+.botonBuscar{
+    background-color: rgb(251, 139, 41);
+    color: #fff;
+    height: 60px;
+    width: 130px;
+    border-radius: 50px;
+    margin: 5px 10px;
+    border: none;
+}
+
+.contenedorSelect{
     margin: 10px;
 }

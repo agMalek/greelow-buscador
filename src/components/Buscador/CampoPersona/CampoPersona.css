@@ -1,25 +1,32 @@
 .boton_personas{
-    width: 130px;
+    width: 135px;
     border-radius: 7px;
-    border: .5px solid #bbb;
-    background-color: #fff;
+    border: 1px solid #bbb;
     margin: 10px;
-    padding: 10px;
+    padding: 6px 12px;
+    display: flex;
+}
+
+.boton_personas:hover{
+    cursor: pointer;
+    border: 1px solid #000;
 }
 
 .label_boton{
-    font-size: 18px;
-    margin-bottom: 5px;
+    font-size: 15px;
+    margin-bottom: 0px;
+}
+
+.value_boton{
+    margin-bottom: 0;
 }
 
 .value_boton, .info_label_item {
-    font-size: 14px;
+    font-size: 13px;
 }
 
 .modal_personas{
     background-color: #fff;
-    border: 1px solid red;
-    margin: 10px;
     padding: 10px;
 }
 

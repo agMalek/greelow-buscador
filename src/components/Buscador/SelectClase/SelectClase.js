@@ -13,7 +13,7 @@ const SelectClase = () => {
   };
 
   return (
-    <Box sx={{ minWidth: 120 }}>
+    <Box sx={{ width: 130 }}>
       <FormControl fullWidth>
         <InputLabel id="demo-simple-select-label">Clase</InputLabel>
         <Select
