@@ -6,12 +6,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import './CampoFecha.css'
 
 
-const CampoFecha = ({label, fecha, setFecha, mostarWarning}) => {
-    /* const [value, setValue] = useState(dayjs()); */
-
-   /*  useEffect(() => {
-      console.log(fecha)
-    }, [fecha]) */
+const CampoFecha = ({label, fecha, setFecha, mostarWarning, disabled}) => {
 
     const handleChange = (newValue) => {
       setFecha(newValue);
@@ -27,6 +22,7 @@ const CampoFecha = ({label, fecha, setFecha, mostarWarning}) => {
             value={fecha}
             onChange={handleChange}
             renderInput={(params) => <TextField {...params} />}
+            disabled={disabled}
             />  
         </Stack>
       </LocalizationProvider>

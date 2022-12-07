@@ -19,6 +19,7 @@
 
 .contenedor_inputs_buscador{
     display: flex;
+    justify-content: space-around;
 }
 
 
@@ -57,10 +58,14 @@
     height: 60px;
     width: 130px;
     border-radius: 50px;
-    margin: 5px 10px;
+    margin: 5px 7px;
     border: none;
 }
 
 .contenedorSelect{
     margin: 10px;
+}
+
+.contenedor_input_ciudades{
+    display: flex;
 }

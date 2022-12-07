@@ -1,0 +1,54 @@
+
+
+.input_ciudad{
+    border: 1px solid #bbb;
+    border-radius: 5px;
+    padding: 10px;
+    width: 185px;   
+    height: 56px;
+    margin: 11px 5px;
+    margin-bottom: 0;
+    background-color: transparent;
+    outline: none;
+}
+
+.input_ciudad:hover{
+    border: 1px solid #000;
+}
+
+.input_ciudad:focus{
+    border: 2px solid blue;
+}
+
+.list-ciudad{
+    list-style-type: none;
+    margin: 0 5px;
+    padding: 0;
+    background-color: #fff;
+    width: 185px;
+    max-height: 200px;
+    overflow-y: auto;
+    border: 1px solid #bbb;
+}
+
+.item_list_ciudad{
+    width: 100%;
+    padding: 10px;
+    border-bottom: .5px solid #bbb;
+    cursor: pointer;
+}
+
+.item_list_ciudad:hover{
+    background-color: #eee;
+    font-weight: bold;
+} 
+
+.dis-none{
+    display: none;
+}
+
+.warning_ciudad{
+    color: red;
+    font-size: 12px;
+    text-align: center;
+}
