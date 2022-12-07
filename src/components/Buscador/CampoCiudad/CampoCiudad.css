@@ -1,3 +1,5 @@
-.campoCiudadMui{
-    height: 200px;
+.warningCiudad{
+    color: red;
+    font-size: 12px;
+    margin-left: 10px;
 }
