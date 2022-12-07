@@ -29,6 +29,7 @@ const CampoCiudadPropio = ({placeholder, setCiudad, ciudad, ciudades, mostarWarn
                     : ""
                 }
             </ul>
+            {/* TERNARIOS DE LOS WARNING */}
             {
                 mostarWarning ? <p className='warning_ciudad'>{mostarWarning.msg}</p> : ""
             }

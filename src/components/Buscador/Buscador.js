@@ -1,48 +1,59 @@
-import CampoCiudad from './CampoCiudad/CampoCiudad';
-import CampoFecha from './CampoFecha/CampoFecha';
-import ciudades from '../../files/ciudades'
-import './Buscador.css'
-import CampoPersona from './CampoPersona/CampoPersona';
-import SelectClase from './SelectClase/SelectClase';
-import SearchIcon from '@mui/icons-material/Search';
-import RadioIdaVuelta from './RadioIdaVuelta/RadioIdaVuelta';
-import LocalAirportIcon from '@mui/icons-material/LocalAirport';
+/* import CampoCiudad from './CampoCiudad/CampoCiudad'; */
 import { useEffect, useState } from 'react';
 import dayjs from 'dayjs';
+
+import ciudades from '../../files/ciudades'
+
+import RadioIdaVuelta from './RadioIdaVuelta/RadioIdaVuelta';
 import CampoCiudadPropio from './CampoCiudadPropio/CampoCiudadPropio';
+import CampoFecha from './CampoFecha/CampoFecha';
+import CampoPersona from './CampoPersona/CampoPersona';
+import SelectClase from './SelectClase/SelectClase';
+
+import SearchIcon from '@mui/icons-material/Search';
+import LocalAirportIcon from '@mui/icons-material/LocalAirport';
+
+import './Buscador.css'
 
 
 const Buscador = () => {
 
-    const fechaActual = dayjs()
-    const fechaLimite = dayjs().add(2, 'year')
 
-    /* ESTADOS RELACIONADOS AL RADIO --> IDA Y VUELTA || SOLO IDA */    
+    
+    /* ESTADOS Y CONSTANTES RELACIONADOS AL RADIO --> IDA Y VUELTA || SOLO IDA */    
     const [valorRadio, setValorRadio] = useState("idaYVuelta")
-
-
-    /* ESTADOS RELACIONADOS A LAS CIUDADES */
+    
+    
+    /* ESTADOS Y CONSTANTES RELACIONADOS A LAS CIUDADES */
     //const [mostrarWarningCiudad, setMostrarWarningCiudad] = useState(false)
     const [ciudadOrigen, setCiudadOrigen] = useState("")
     const [ciudadDestino, setCiudadDestino] = useState("")
     const [mostrarWarningCiudadOrigen, setMostrarWarningCiudadOrigen] = useState({mostrar: false, msg: ""})
     const [mostrarWarningCiudadDestino, setMostrarWarningCiudadDestino] = useState({mostrar: false, msg: ""})
-
-    /* ESTADOS RELACIONADOS A LAS FECHAS */
+    
+    /* ESTADOS Y CONSTANTES RELACIONADOS A LAS FECHAS */
     const [fechaSalida, setFechaSalida] = useState(dayjs())
     const [fechaRegreso, setFechaRegreso] = useState(dayjs())
     const [mostrarWarningFechaSalida, setMostrarWarningFechaSalida] = useState({mostrar: false, msg: ""})
     const [mostrarWarningFechaRegreso, setMostrarWarningFechaRegreso] = useState({mostrar: false, msg: ""})
+    const fechaActual = dayjs()
+    const añoslimites = 2
+    const fechaLimite = dayjs().add(añoslimites, 'year')
+    
+    
+    /* ESTADOS Y CONSTANTES RELACIONADOS A LA CANT DE PERSONAS */
+    const cantMaximaReserva = 9
+    const [cantAdultos, setCantAdultos] = useState(1)
+    const [cantMenores, setCantMenores] = useState(0)
+    const [cantBebes, setCantBebes] = useState(0)
+    const [edadMenores, setEdadMenores] = useState([])
+    const [mostrarWarningEdadesMenores, setMostrarWarningEdadesMenores] = useState(false)
+    const [mostrarWarningMasBebesQAdultos, setMostrarWarningMasBebesQAdultos] = useState(false)
+    const [mostrarWarningMuchasPersonas, setMostrarWarningMuchasPersonas] = useState(false)
 
-
-    useEffect(() => {
-        if(valorRadio === "ida"){
-            setMostrarWarningFechaRegreso({mostrar: false, msg: ""})
-        }else if(valorRadio === "idaYVuelta"){
-            console.log('poiuygfdfhjk')
-        }
-    },[valorRadio])
-
+    /* ESTADOS Y CONSTANTES RELACIONADOS A LA CLASE */
+    const [clase, setClase] = useState('');
+    const [mostrarWarningClase, setMostrarWarningClase] = useState(false);
 
     const buscar = () => {
         if(verificarBusqueda()){
@@ -53,12 +64,22 @@ const Buscador = () => {
                 Destino a: ${ciudadDestino}
                 Fecha de salida ${fechaSalida}
                 ${valorRadio === 'idaYVuelta' ? `Fecha de regreso ${fechaRegreso}` : ""}
+                Cantidad de personas: ${cantAdultos+cantBebes+cantMenores}.
+                    ---> Adultos: ${cantAdultos}
+                    ---> Menores: ${cantMenores}
+                    ---> Bebes: ${cantBebes}
+                Clase: ${clase}            
             `)
         }
     }
 
     const verificarBusqueda = () => {
-        return validacionesCiudades() && validacionesFechas()    
+        const okCiudades = validacionesCiudades()
+        const okFechas = validacionesFechas()
+        const okPersonas = validacionensPersonas()
+        const okClase = validacionesClase()
+
+        return okCiudades && okFechas && okPersonas && okClase  
     }
 
     const validacionesCiudades = () => {
@@ -128,7 +149,7 @@ const Buscador = () => {
         if(fecha.$d == "Invalid Date"){
             return {rta: false, msg: "*Fecha inválida"}
         }else if(!fecha.isBefore(fechaLimite)){
-            return {rta: false, msg: "*Ingrese una fecha dentro de los 2 años"}
+            return {rta: false, msg: `*Ingrese una fecha dentro de los ${añoslimites} años`}
         }else if(fecha.isBefore(fechaActual)){
             return {rta: false, msg: "*Ingrese una fecha posterior a la actual"}
         }
@@ -144,7 +165,59 @@ const Buscador = () => {
     }
 
     
+    const validacionensPersonas = () => {
+        return !mostrarWarningMuchasPersonas && !mostrarWarningMasBebesQAdultos && !mostrarWarningEdadesMenores
+    }
 
+    const verificarEdadesMenores = () => {
+        const rta = edadMenores.filter(edad => edad === 'Sin seleccionar')
+        if (rta.length !== 0) {
+            setMostrarWarningEdadesMenores(true)
+        } else {
+            setMostrarWarningEdadesMenores(false)
+        }
+    }
+    
+    const verificarMenosBebesQAdultos = () => {
+        if(cantBebes > cantAdultos){
+            setMostrarWarningMasBebesQAdultos(true)
+        }else{
+            setMostrarWarningMasBebesQAdultos(false)
+        }
+    }
+    
+    const verificarLimitePersonas = () => {
+        if( (cantAdultos + cantMenores + cantBebes) > cantMaximaReserva){
+            setMostrarWarningMuchasPersonas(true)
+        }else{
+            setMostrarWarningMuchasPersonas(false)
+        }
+    }
+
+    const validacionesClase = () => {
+        if( clase === ""){
+            setMostrarWarningClase(true)
+            return false
+        }else{
+            setMostrarWarningClase(false)
+            return true
+        }
+    }
+
+    useEffect(() => {
+        if(valorRadio === "ida"){
+            setMostrarWarningFechaRegreso({mostrar: false, msg: ""})
+        }
+    },[valorRadio])
+    
+    useEffect(() => {
+        verificarLimitePersonas()
+        verificarMenosBebesQAdultos()
+    }, [cantAdultos, cantMenores, cantBebes])
+    
+    useEffect(() => {
+        verificarEdadesMenores()
+    }, [edadMenores])
 
     
 
@@ -155,9 +228,9 @@ const Buscador = () => {
             
 
             {/* TITULO Y RADIO */}
-            <div className='d-flex'>
+            <div className='contenedorTituloYRadio'>
                 <h2 className='titulo_buscador my-1'>Vuelos</h2>
-                <div className='mb-2'>
+                <div className='radioIdaYVuelta mb-2'>
                     <RadioIdaVuelta setRadioIdaVuelta={setValorRadio}/>
                 </div>
             </div>
@@ -165,7 +238,9 @@ const Buscador = () => {
 
             <div className='contenedor_inputs_buscador'>
                 
-                {/* INPUTS CIUDADES  */}
+                {/* INPUTS CIUDADES --->>> CON COMPONENTE MUI */}
+
+
                 {/* <div className='contenedor_ciudades'>
                     <div className='campo_ciudad origen'>
                         <CampoCiudad 
@@ -190,6 +265,7 @@ const Buscador = () => {
                 </div> */}
               
 
+                {/* INPUTS CIUDADES  */}
                 <div className='contenedor_input_ciudades'>
                    
                     <CampoCiudadPropio 
@@ -208,7 +284,6 @@ const Buscador = () => {
                         ciudad={ciudadDestino}
                         ciudades={ciudades}
                         mostarWarning={mostrarWarningCiudadDestino}
-
                     />
                 </div>
 
@@ -232,20 +307,35 @@ const Buscador = () => {
                             />
                     </div>
                 </div>
+                 
+                <div className='contenedor_PersonasYClase'>
+                    {/* PERSONAS */}
+                    <div className='contenedor_persona'>
+                        <CampoPersona 
+                            cantAdultos={cantAdultos}
+                            cantMenores={cantMenores}
+                            cantBebes={cantBebes}
+                            edadMenores={edadMenores}
+                            setCantAdultos={setCantAdultos}
+                            setCantMenores={setCantMenores}
+                            setCantBebes={setCantBebes}
+                            setEdadMenores={setEdadMenores} 
+                            mostrarWarningEdadesMenores={mostrarWarningEdadesMenores}
+                            mostrarWarningMasBebesQAdultos={mostrarWarningMasBebesQAdultos}
+                            mostrarWarningMuchasPersonas={mostrarWarningMuchasPersonas}
+                            cantMaximaReserva={cantMaximaReserva}
+                        />
+                    </div>
 
-                {/* PERSONAS */}
-                <div className='contenedor_persona'>
-                    <CampoPersona />
-                </div>
+                    {/* CLASE */}
+                    <div className='contenedorSelect'>
+                        <SelectClase clase={clase} setClase={setClase} mostrarWarningClase={mostrarWarningClase}/>
+                    </div>
 
-                {/* CLASE */}
-                <div className='contenedorSelect'>
-                    <SelectClase />
-                </div>
+                </div> 
 
                 {/* BOTON BUSCAR */}
-                {/* <Button className='botonBuscar'  startIcon={<SearchIcon />}>Buscar</Button> */}
-                <button className='botonBuscar' onClick={() => buscar()}> <SearchIcon /> Buscar</button>
+                <button className='botonBuscar' onClick={() => buscar()}> <SearchIcon className='iconoBuscador' /> Buscar</button>
             </div>
 
 

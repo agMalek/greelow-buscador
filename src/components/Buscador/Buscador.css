@@ -5,11 +5,18 @@
 
 .contenedor_buscador{
     background-color: #eee;
-    height: 180px;
-    padding:20px;
+    height: 190px;
+    padding: 20px;
+    padding-bottom: 25px;
     margin: 30px;
     border-radius: 40px;
     font-family: Arial, Helvetica, sans-serif;
+    border: 2px double rgb(251, 139, 41);
+}
+
+
+.contenedorTituloYRadio{
+    display: flex;
 }
 
 .titulo_buscador{
@@ -24,8 +31,7 @@
 
 
 .contenedor_ciudades, .contenedor_fechas{
-    display: flex;
-    
+    display: flex; 
 }
 
 .contenedor_ciudades{
@@ -53,14 +59,24 @@
 }
 
 .botonBuscar{
-    background-color: rgb(251, 139, 41);
-    color: #fff;
     height: 60px;
     width: 130px;
     border-radius: 50px;
     margin: 5px 7px;
     border: none;
+    font-weight: bold;
+    color:  rgb(251, 139, 41);
+    background-color: transparent;
+    border: 3px solid rgb(251, 139, 41);
 }
+
+.botonBuscar:hover{
+    background-color: rgb(251, 139, 41);
+    color: #fff;
+    border: none;
+}
+
+
 
 .contenedorSelect{
     margin: 10px;
@@ -68,4 +84,59 @@
 
 .contenedor_input_ciudades{
     display: flex;
+}
+
+.contenedor_PersonasYClase{
+    display: flex;
+}
+
+
+@media screen and (max-width: 1000px) {
+    .contenedor_buscador{
+        height: auto;
+        margin: 15px;
+    }
+    .contenedorTituloYRadio{
+        display: block;
+    }
+    .titulo_buscador, .radioIdaYVuelta{
+        text-align: center;
+        margin: 20px;
+    }
+    .contenedor_inputs_buscador{
+        display: block;
+        width: 100%;
+    }
+    .contenedor_input_ciudades, .contenedor_fechas, .campo_fecha{
+        display: flex;
+        justify-content: center; 
+    }
+    .contenedor_PersonasYClase{
+        display: flex;
+        justify-content: center;
+    }
+    .botonBuscar{
+      width: 50%;
+      margin: 20px 25%;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .contenedor_buscador{
+        height: auto;
+        margin: 15px;
+    }
+    .contenedor_input_ciudades, .contenedor_fechas, .campo_fecha{
+        display: block;
+        width: 80%;
+    }
+    .contenedor_PersonasYClase{
+        display: block;
+    }
+    .icon_avion{
+        margin: 0px 20%;
+        transform: rotate(180deg);
+        text-align: center;
+    }
+
 }

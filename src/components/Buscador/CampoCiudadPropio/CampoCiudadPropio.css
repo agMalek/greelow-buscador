@@ -29,6 +29,7 @@
     max-height: 200px;
     overflow-y: auto;
     border: 1px solid #bbb;
+    position:absolute;
 }
 
 .item_list_ciudad{
@@ -41,6 +42,7 @@
 .item_list_ciudad:hover{
     background-color: #eee;
     font-weight: bold;
+    color: rgb(251, 139, 41);
 } 
 
 .dis-none{
@@ -51,4 +53,10 @@
     color: red;
     font-size: 12px;
     text-align: center;
+}
+
+@media screen and (max-width: 1000px) {
+    .list-ciudad{
+        position:relative;
+    }
 }

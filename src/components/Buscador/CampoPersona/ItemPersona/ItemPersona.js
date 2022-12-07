@@ -1,3 +1,5 @@
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 import './ItemPersona.css'
 
 const ItemPersona = ({titulo, desc, preguntaDisabledDescontar, preguntaDisabledAumentar , funcionButton, contador}) => {
@@ -8,9 +10,13 @@ const ItemPersona = ({titulo, desc, preguntaDisabledDescontar, preguntaDisabledA
                 <p className='info_label_item'>{desc}</p>
             </div>
             <div className='contenedor_cant_pers'>
-                <button disabled={preguntaDisabledDescontar} className='btn btn-primary' onClick={() => funcionButton(contador - 1)}>-</button>
+                <button disabled={preguntaDisabledDescontar} className='botonMasMenosPersonas' onClick={() => funcionButton(contador - 1)}>
+                    <RemoveCircleOutlineIcon fontSize='large'/>
+                </button>
                 <p>{contador}</p>
-                <button disabled={preguntaDisabledAumentar} className='btn btn-primary' onClick={() => funcionButton(contador + 1)}>+</button>
+                <button disabled={preguntaDisabledAumentar} className='botonMasMenosPersonas' onClick={() => funcionButton(contador + 1)}>
+                    <AddCircleOutlineIcon fontSize='large'/>
+                </button>
             </div>
         </div>
     )

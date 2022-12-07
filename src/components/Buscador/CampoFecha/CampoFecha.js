@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import {Stack, TextField} from '@mui/material';
 import { LocalizationProvider, DesktopDatePicker} from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -26,6 +25,7 @@ const CampoFecha = ({label, fecha, setFecha, mostarWarning, disabled}) => {
             />  
         </Stack>
       </LocalizationProvider>
+      {/* TERNARIOS DE LOS WARNING */}
       { 
         mostarWarning.mostar ? 
         <p className='warningFechas'>{mostarWarning.msg}</p>

@@ -18,7 +18,7 @@ const RadioIdaVuelta = ({setRadioIdaVuelta}) => {
       >
         <FormControlLabel className='mx-3' value="idaYVuelta" control={<Radio />} label="Ida y vuelta" />
         <FormControlLabel className='mx-3' value="ida" control={<Radio />} label="Sólo ida" />
-        <FormControlLabel className='mx-3' value="Multidestino" control={<Radio />} label="Multidestino" />
+        {/* <FormControlLabel className='mx-3' value="Multidestino" control={<Radio />} label="Multidestino" /> */}
       </RadioGroup>
     </FormControl>
   );

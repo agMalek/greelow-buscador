@@ -1,20 +1,28 @@
-import './CampoPersona.css'
 import { useEffect, useState } from 'react'
 import ItemPersona from './ItemPersona/ItemPersona'
-/* import Alert from '@mui/material/Alert'; */
 import EmojiPeopleIcon from '@mui/icons-material/EmojiPeople';
+/* import Alert from '@mui/material/Alert'; */
+import './CampoPersona.css'
 
-const CampoPersona = () => {
+const CampoPersona = ({
+    cantAdultos,
+    cantMenores,
+    cantBebes,
+    edadMenores,
+    setCantAdultos,
+    setCantMenores,
+    setCantBebes,
+    setEdadMenores,
+    mostrarWarningEdadesMenores,
+    mostrarWarningMasBebesQAdultos,
+    mostrarWarningMuchasPersonas,
+    cantMaximaReserva
+}) => {
 
 
-    const cantMaximaReserva = 9
 
     const [mostrarModal, setMostrarModal] = useState(false)
-    const [cantAdultos, setCantAdultos] = useState(1)
-    const [cantMenores, setCantMenores] = useState(0)
-    const [cantBebes, setCantBebes] = useState(0)
-    const [edadMenores, setEdadMenores] = useState([])
-    const [mostrarWarningEdadesMenores, setMostrarWarningEdadesMenores] = useState(false)
+
 
 
     useEffect(() => {
@@ -26,40 +34,39 @@ const CampoPersona = () => {
     }, [cantMenores])
 
 
-    useEffect(() => {
-        verificarEdadesMenores()
-    }, [edadMenores])
 
 
     const handleChangeEdadMenor = (value, index) => {
         setEdadMenores([...edadMenores.slice(0, index), value, ...edadMenores.slice(index + 1)])
     }
 
-    const verificarEdadesMenores = () => {
-        const rta = edadMenores.filter(edad => edad === 'Sin seleccionar')
-        if (rta.length !== 0) {
-            setMostrarWarningEdadesMenores(true)
-        } else {
-            setMostrarWarningEdadesMenores(false)
-        }
-    }
+
+
 
     return (
         <>
-            <div className='boton_personas' onClick={() => setMostrarModal(!mostrarModal)}>
-                <div>
-                    <p className='label_boton'>Personas</p>
-                    <p
-                        className='value_boton'
-                        style={{ "color": (cantAdultos + cantMenores + cantBebes) > cantMaximaReserva || cantBebes > cantAdultos || mostrarWarningEdadesMenores ? "red" : "black" }}
-                    >
-                        {cantAdultos + cantMenores + cantBebes} {(cantAdultos + cantMenores + cantBebes > 1) ? "personas" : "persona"}
-                    </p>
-                </div>
-                <div className='my-1 mx-3'>
-                    <EmojiPeopleIcon color="primary" fontSize="large"/>
+            <div className='contenedorBotonPersona'>
+                <div className='boton_personas' onClick={() => setMostrarModal(!mostrarModal)}>
+                    <div>
+                        <p className='label_boton'>Personas</p>
+                        <p
+                            className='value_boton'
+                            style={{ "color": mostrarWarningMuchasPersonas || mostrarWarningMasBebesQAdultos || mostrarWarningEdadesMenores ? "red" : "black" }}
+                        >
+                            {cantAdultos + cantMenores + cantBebes} {(cantAdultos + cantMenores + cantBebes > 1) ? "personas" : "persona"}
+                        </p>
+                    </div>
+                    <div className='my-1 mx-3'>
+                        <EmojiPeopleIcon color="primary" fontSize="large" />
+                    </div>
                 </div>
             </div>
+            {
+                !mostrarModal && (mostrarWarningEdadesMenores || mostrarWarningMasBebesQAdultos || mostrarWarningMuchasPersonas) ?
+                    <p className='warningPersonaPrincipal'>*Revise su selección</p>
+                    : ""
+
+            }
             {
                 mostrarModal ?
                     <div className='modal_personas'>
@@ -97,7 +104,7 @@ const CampoPersona = () => {
                                     >
                                         <option className='optionSelect' value={"Sin seleccionar"}>Seleccione la edad del {index + 1}° menor</option>
                                         <option className='optionSelect' value={"Ninio"}>Entre 2 y 11 años</option>
-                                        <option className='optionSelect' value={"Adolescente"}>Entre 11 y 17 años</option>
+                                        <option className='optionSelect' value={"Adolescente"}>Entre 12 y 17 años</option>
                                     </select>
 
                                 )
@@ -117,14 +124,17 @@ const CampoPersona = () => {
                         />
 
                         <hr />
+
+                        {/* TERNARIOS DE LOS WARNING */}
+
                         {
-                            (cantAdultos + cantMenores + cantBebes) > cantMaximaReserva ?
+                            mostrarWarningMuchasPersonas ?
                                 //<Alert className='warningPersona' severity="error">El máximo de reservas es de {cantMaximaReserva} personas</Alert> 
                                 <p className='warningPersona'>*El máximo de reservas es de {cantMaximaReserva} personas</p>
                                 : ""
                         }
                         {
-                            cantBebes > cantAdultos ?
+                            mostrarWarningMasBebesQAdultos ?
                                 //<Alert className='warningPersona' severity="error">No pueden haber mas bebes que adultos</Alert>
                                 <p className='warningPersona'>*No pueden haber mas bebes que adultos</p>
                                 : ""
@@ -137,8 +147,8 @@ const CampoPersona = () => {
                         }
                         <div className='d-flex justify-content-center'>
                             <button
-                                disabled={(cantAdultos + cantMenores + cantBebes) > cantMaximaReserva || cantBebes > cantAdultos || mostrarWarningEdadesMenores}
-                                className='btn btn-info botonListo'
+                                disabled={mostrarWarningMuchasPersonas || mostrarWarningMasBebesQAdultos || mostrarWarningEdadesMenores}
+                                className='botonListoModalPersona'
                                 onClick={() => setMostrarModal(!mostrarModal)}
                             >Listo</button>
                         </div>
@@ -152,6 +162,6 @@ const CampoPersona = () => {
 }
 
 
-export default CampoPersona; 
+export default CampoPersona;
 
 

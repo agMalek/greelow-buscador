@@ -1,10 +1,11 @@
 .boton_personas{
-    width: 135px;
     border-radius: 5px;
     border: 1px solid #bbb;
     margin: 10px;
+    margin-bottom: 0px;
     padding: 6px 12px;
     display: flex;
+    justify-content: center;
 }
 
 .boton_personas:hover{
@@ -27,7 +28,11 @@
 
 .modal_personas{
     background-color: #fff;
-    padding: 10px;
+    padding: 10px 15px;
+    position: absolute;
+    margin: 5px 10px;
+    border: 2px solid rgb(251, 139, 41);
+    border-radius: 13px;
 }
 
 .selectPersona{
@@ -36,23 +41,58 @@
     margin: 10px;
     border: none;
     background-color: #eee;
-    border-bottom: 1px solid blue;
+    border-bottom: 1px solid rgb(251, 139, 41);
 }
 
 .optionSelect{
     padding: 5px;
     margin: 5px;
-
 }
 
-.warningPersona{
+.optionSelect:hover{
+    padding: 5px;
+    margin: 5px;
+    background-color: rgb(251, 139, 41);
+}
+
+.warningPersona, .warningPersonaPrincipal{
     font-size: 12px;
-    font-family: Arial, Helvetica, sans-serif;
-    margin: 4px;
+    text-align: center;
     color: red;
 }
 
-.botonListo{
-    margin: 8px;
+.warningPersona{
+    margin: 4px;
+}
+
+.warningPersonaPrincipal{
+    margin: 0px;
+}
+
+.botonListoModalPersona{
+    margin: 5px;
     width: 50%;
+    background-color: #fff;
+    border: 3px solid  rgb(251, 139, 41);
+    border-radius: 20px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+@media screen and (max-width: 1000px) {
+    .boton_personas{
+        border-radius: 5px;
+        border: 1px solid #bbb;
+        margin: 10px;
+        margin-bottom: 0px;
+        padding: 6px 12px;
+        display: flex;
+        justify-content: center;
+        width: 200px;
+        
+    }
+    .contenedorBotonPersona{
+        display: inline;
+    }
+
 }

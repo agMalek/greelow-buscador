@@ -1,6 +1,5 @@
 import './CampoCiudad.css'
 import {Autocomplete, TextField} from '@mui/material'
-import { useEffect } from 'react';
 
 const CampoCiudad = ({opciones = [], ciudad, label, setCiudad, mostrarWarning}) => {
     
@@ -23,11 +22,7 @@ const CampoCiudad = ({opciones = [], ciudad, label, setCiudad, mostrarWarning}) 
 
     const eleccionCiudad = (value) => {
         console.log("hola", value)
-    }
-
-    useEffect(() => {
-        console.log(ciudad)
-    }, [ciudad]) */
+    } */
 
     return (
         <div className="">
