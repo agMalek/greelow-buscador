@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/greelow-buscador/static/css/main.3beaa7df.css",
+    "main.js": "/greelow-buscador/static/js/main.cc681e15.js",
+    "static/js/787.1c3c9fe5.chunk.js": "/greelow-buscador/static/js/787.1c3c9fe5.chunk.js",
+    "index.html": "/greelow-buscador/index.html",
+    "main.3beaa7df.css.map": "/greelow-buscador/static/css/main.3beaa7df.css.map",
+    "main.cc681e15.js.map": "/greelow-buscador/static/js/main.cc681e15.js.map",
+    "787.1c3c9fe5.chunk.js.map": "/greelow-buscador/static/js/787.1c3c9fe5.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.3beaa7df.css",
+    "static/js/main.cc681e15.js"
+  ]
+}
